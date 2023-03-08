@@ -1,3 +1,4 @@
+<<<<<<< HEAD:01-starting-setup/src/components/ExpenseItem.jsx
 import "./ExpenseItem.css";
 
 function ExpenseItem(props) {
@@ -10,6 +11,10 @@ function ExpenseItem(props) {
             </div>
         </div>
     );
+=======
+function ExpenseItem() {
+    return <h2>Expense item!</h2>
+>>>>>>> d71f97c84a50ea477b2b6962c974fb8321b088a3:01-starting-setup/src/components/ExpenseItem.js
 }
 
 export default ExpenseItem;
