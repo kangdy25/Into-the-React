@@ -12,20 +12,6 @@
   font-size: 1.7rem;
 }
 
-.sort {
-  display: flex;
-  justify-content: center;
-}
-
-.sort__button {
-  margin: 10px 0;
-  font-size: 30px;
-  color: white;
-  background: slateblue;
-  border: 5px solid slategray;
-  padding: 5px;
-}
-
 .list {
   border-bottom: 1px solid #444;
   padding-left: 30px;
@@ -49,3 +35,11 @@
 .list p {
   font-size: 1.25rem;
 }
+
+.modal {
+  margin-top: 20px;
+  padding: 20px;
+  background: #eee;
+  text-align: center;
+}
+
