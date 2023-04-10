@@ -16,6 +16,7 @@ function App() {
         setTitle(copyTitle);
     };
     let [modal, setModal] = useState(false);
+    let [modalTitle, setModalTitle] = useState(0);
 
     return (
         <div className="App">
@@ -31,7 +32,7 @@ function App() {
                 title.map((a, i) => {
                     return (
                         <div className="list" key={i}>
-                            <h4 onClick={() => {setModal(true)}}>{title[i]}
+                            <h4 onClick={() => {setModal(true); setModalTitle(i) }}>{title[i]}
                             <span onClick={() => {
                                 let copyLike = [...like];
                                 copyLike[i] = like[i] + 1;
@@ -47,7 +48,7 @@ function App() {
             }
 
             {
-                modal == true ? <Modal setTitle={setTitle} title={title}></Modal> : null 
+                modal === true ? <Modal modalTitle={modalTitle} title={title} titleChange={titleChange}></Modal> : null 
             }
         </div>
     );
@@ -56,7 +57,7 @@ function App() {
 function Modal(props) {
     return (
         <div className="modal" style={{background: props.color}}>
-            <h4>{props.title[0]}</h4>
+            <h4>{props.title[props.modalTitle]}</h4>
             <p>날짜</p>
             <p>상세 내용</p>
             <button onClick={props.titleChange}>글 수정</button>
