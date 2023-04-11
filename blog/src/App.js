@@ -2,14 +2,18 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-    let postDate = "4월 6일에 씀";
+    const date = new Date();
+    const yyyy = date.getFullYear();
+    const mm = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : (date.getMonth + 1);
+    const dd = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
+    let postDate = `${yyyy}.${mm}.${dd}`;
     let [title, setTitle] = useState([
         "남자 코트 추천",
         "강남 우동 맛집",
-        "파이썬 독학",
-        "앙 기모찌"
+        "파이썬 독학"
     ]);
-    let [like, setLike] = useState([0, 0, 0, 0]);
+    let [like, setLike] = useState([0, 0, 0]);
+    let [newLike] = useState(0);
     let [modal, setModal] = useState(false);
     let [modalTitle, setModalTitle] = useState(0);
     let [input, setInput] = useState('');
@@ -21,14 +25,26 @@ function App() {
     };
 
     let publishContent = () => {
-        let copyTitle = [...title, input];
+        // let copyTitle = [...title, input]; // 이것도 맞음 ㅇㅇ
+        let copyTitle = [...title];
+        copyTitle.unshift(input);
         setTitle(copyTitle);
+        
+        // 발행될 때 좋아요 개별 추가
+        let copyLike = [...like];
+        copyLike.unshift(newLike);
+        setLike(copyLike);
     };
 
     let deleteContent = (contentId) => {
         let copyTitle = [...title];
         copyTitle.splice(contentId, 1)
         setTitle(copyTitle);
+
+        // 삭제될 때 좋아요 개별 삭제
+        let copyLike = [...like];
+        copyLike.splice(contentId, 1);
+        setLike(copyLike);
     }
 
     return (
@@ -36,10 +52,6 @@ function App() {
             <div className="black-nav">
                 <h4>블로그임</h4>
             </div>
-            {/* <div className="list">
-                <h4>{title[0]}<span className="title">제목 바꾸기</span></h4>
-                <p>{postDate}</p>
-            </div> */}
 
             {
                 title.map((a, i) => {
@@ -51,6 +63,7 @@ function App() {
                                 let copyLike = [...like];
                                 copyLike[i] = like[i] + 1;
                                 setLike(copyLike);
+
                             }} > 👍🏻{" "}
                             </span>
                                 {like[i]} 
@@ -64,10 +77,8 @@ function App() {
                 })
             }
             <div className="publish">
-                <input onChange={(e) => {setInput(e.target.value); console.log(input)}}></input>
-                <button onClick={() => {
-                    publishContent();
-                }}>글 발행</button>
+                <input value={input} onChange={(e) => {setInput(e.target.value); console.log(e.target.value);}}></input>
+                <button disabled={!input} onClick={publishContent}>글 발행</button>
             </div>
             
             {
