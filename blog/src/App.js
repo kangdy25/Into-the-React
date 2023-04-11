@@ -2,21 +2,34 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-    const postDate = "4월 6일에 씀";
-    const [title, setTitle] = useState([
+    let postDate = "4월 6일에 씀";
+    let [title, setTitle] = useState([
         "남자 코트 추천",
         "강남 우동 맛집",
         "파이썬 독학",
-        "앙 기모찌",
+        "앙 기모찌"
     ]);
     let [like, setLike] = useState([0, 0, 0, 0]);
+    let [modal, setModal] = useState(false);
+    let [modalTitle, setModalTitle] = useState(0);
+    let [input, setInput] = useState('');
+
     let titleChange = () => {
         let copyTitle = [...title];
         copyTitle[0] = '여자 코트 추천';
         setTitle(copyTitle);
     };
-    let [modal, setModal] = useState(false);
-    let [modalTitle, setModalTitle] = useState(0);
+
+    let publishContent = () => {
+        let copyTitle = [...title, input];
+        setTitle(copyTitle);
+    };
+
+    let deleteContent = (contentId) => {
+        let copyTitle = [...title];
+        copyTitle.splice(contentId, 1)
+        setTitle(copyTitle);
+    }
 
     return (
         <div className="App">
@@ -33,7 +46,8 @@ function App() {
                     return (
                         <div className="list" key={i}>
                             <h4 onClick={() => {setModal(true); setModalTitle(i) }}>{title[i]}
-                            <span onClick={() => {
+                            <span onClick={(e) => {
+                                e.stopPropagation();
                                 let copyLike = [...like];
                                 copyLike[i] = like[i] + 1;
                                 setLike(copyLike);
@@ -42,11 +56,20 @@ function App() {
                                 {like[i]} 
                             </h4>
                             <p>{postDate}</p>
+                            <button onClick={() => {
+                                deleteContent(i);
+                            }}>삭🌟제</button>
                         </div>
                     )
                 })
             }
-
+            <div className="publish">
+                <input onChange={(e) => {setInput(e.target.value); console.log(input)}}></input>
+                <button onClick={() => {
+                    publishContent();
+                }}>글 발행</button>
+            </div>
+            
             {
                 modal === true ? <Modal modalTitle={modalTitle} title={title} titleChange={titleChange}></Modal> : null 
             }
