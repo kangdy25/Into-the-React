@@ -57,7 +57,7 @@ function App() {
                 title.map((a, i) => {
                     return (
                         <div className="list" key={i}>
-                            <h4 onClick={() => {setModal(true); setModalTitle(i) }}>{title[i]}
+                            <h4 onClick={() => {setModal(!modal); setModalTitle(i) }}>{title[i]}
                             <span onClick={(e) => {
                                 e.stopPropagation();
                                 let copyLike = [...like];
@@ -82,7 +82,7 @@ function App() {
             </div>
             
             {
-                modal === true ? <Modal modalTitle={modalTitle} title={title} titleChange={titleChange}></Modal> : null 
+                modal === true ? <Modal color={'#aaa'} modalTitle={modalTitle} title={title} titleChange={titleChange}></Modal> : null 
             }
         </div>
     );
