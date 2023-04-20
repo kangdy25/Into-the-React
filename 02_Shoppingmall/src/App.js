@@ -1,7 +1,13 @@
+ // eslint-disable-next-line
+import React, { useState } from 'react';
 import './App.css';
 import {Navbar, Container, Nav} from 'react-bootstrap';
+import data from './data';
+import Card from './Card';
 
 function App() {
+  let [shoes] = useState(data);
+
   return (
     <div className="App">
       <Navbar bg="dark" variant="dark">
@@ -20,23 +26,15 @@ function App() {
       <div className='main-bg'></div>
       <div></div>
       <Container>
-        <div class="row">
-          <div class="col-md-4">
-            <img src='https://codingapple1.github.io/shop/shoes1.jpg' width="80%"/>
-            <h4>상품명</h4>
-            <p>상품 설명</p>
+        <div class="row" >
+          {
+            shoes.map((a, i) => {
+              return (
+                  <Card shoes={shoes[i]} i={i}></Card>
+                  )
+                })
+          }
           </div>
-          <div class="col-md-4">
-            <img src='https://codingapple1.github.io/shop/shoes2.jpg' width="80%"/>
-            <h4>상품명</h4>
-            <p>상품 설명</p>
-          </div>
-          <div class="col-md-4">
-            <img src='https://codingapple1.github.io/shop/shoes3.jpg' width="80%"/>
-            <h4>상품명</h4>
-            <p>상품 설명</p>
-          </div>
-        </div>
       </Container>
     </div>
   );
