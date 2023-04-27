@@ -7,6 +7,7 @@ import Detail from './Routes/Detail';
 import {Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 import axios from 'axios';
 import Loading from './UI/Loading';
+import { useEffect } from 'react';
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -86,7 +87,6 @@ function App() {
     </div>
   );
 }
-
 
 function About() {
   return (
