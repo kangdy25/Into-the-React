@@ -6,10 +6,14 @@ import Card from './Components/Card';
 import Detail from './Routes/Detail';
 import {Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 import axios from 'axios';
+import Loading from './UI/Loading';
 
 function App() {
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
+  let [buttonCheck, setButtonCheck] = useState(0);
+  let [buttonDisable, setButtonDisable] = useState(false);
+  let [loadingStatus, setLoadingStatus] = useState(false);
 
   return (
     <div className="App">
@@ -43,13 +47,26 @@ function App() {
                 </div>
             </Container>
             <button onClick={() => {
-              axios.get('https://codingapple1.github.io/shop/data2.json')
-              .then((result)=>{
-                let copy = [...shoes, ...result.data];
-                setShoes(copy);
-              })
-              .catch(()=>{console.log('실패함 ㅅㄱ')})
-            }}>버튼</button>
+              setLoadingStatus(true);
+              setButtonCheck(buttonCheck = buttonCheck + 1);
+              console.log(buttonCheck);
+              if (buttonCheck < 3) {
+                axios.get(`https://codingapple1.github.io/shop/data${buttonCheck + 1}.json`)
+                .then((result)=>{
+                  setLoadingStatus(false);
+                  let copy = [...shoes, ...result.data];
+                  setShoes(copy);
+                })
+                .catch(()=>{console.log('실패함 ㅅㄱ')})
+              } else {
+                alert('더 이상 상품이 없음');
+                setLoadingStatus(false);
+                setButtonDisable(buttonDisable = true);
+              }
+            }} disabled={buttonDisable}>버튼</button>
+            {
+              loadingStatus === true ? <Loading/> : null
+            }
           </div>} 
         />
         <Route path="/detail/:id" element={<Detail shoes={shoes}/>} />
@@ -69,6 +86,7 @@ function App() {
     </div>
   );
 }
+
 
 function About() {
   return (
