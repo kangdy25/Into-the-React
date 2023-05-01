@@ -1,7 +1,11 @@
-import { useState } from "react";
 import { Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { plusLike } from "./../store";
 
 const Cart = () => {
+
+    let state = useSelector((state) => { return state })
+    let dispatch = useDispatch()
 
     return (
         <div>
@@ -15,12 +19,21 @@ const Cart = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>안녕</td>
-                        <td>안녕</td>
-                        <td>안녕</td>
-                    </tr>
+                    {
+                        state.cartData.map((a, i)=>{
+                            return (
+                                <tr>
+                                    <td>{state.cartData[i].id}</td>
+                                    <td>{state.cartData[i].name}</td>
+                                    <td>{state.cartData[i].count}</td>
+                                    <td>안녕</td>
+                                    <td><button onClick={()=>{
+                                        dispatch(plusLike())
+                                    }}>+</button></td>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
             </Table> 
         </div>
