@@ -8,6 +8,7 @@ import {Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 import axios from 'axios';
 import Loading from './UI/Loading';
 import { useEffect } from 'react';
+import Cart from './Routes/Cart';
 
 function App() {
   let [shoes, setShoes] = useState(data);
@@ -27,6 +28,7 @@ function App() {
             <Nav.Link onClick={()=>{navigate('/event')}}>Event</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
             <Nav.Link onClick={()=>{navigate('/about')}}>About</Nav.Link>
+            <Nav.Link onClick={()=>{navigate('/cart')}}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -71,6 +73,7 @@ function App() {
           </div>} 
         />
         <Route path="/detail/:id" element={<Detail shoes={shoes}/>} />
+        <Route path="/cart" element={<Cart/>} />
 
         <Route path="/about" element={<About/>}>
           <Route path="member" element={<div>멤버임</div>}/>
