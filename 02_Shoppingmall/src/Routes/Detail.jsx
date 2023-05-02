@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import { useParams, Routes, Route, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Nav } from 'react-bootstrap';
+import { addItem } from "../store";
+import Cart from "./Cart";
 
 function Detail(props) {
+    let navigate = useNavigate();
     let [check, setCheck] = useState(true);
     let { id } = useParams();
     let findItem = props.shoes.find((x) => {
         return x.id === parseInt(id);
     })
     let [tab, setTab] = useState(0);
-
+    let dispatch = useDispatch();
     useEffect(() => {
         let timer = setTimeout(() => { setCheck(false) }, 2000);
         return () => {
@@ -56,8 +60,14 @@ function Detail(props) {
                     <h4 className="pt-5">{findItem.title}</h4>
                     <p>{findItem.content}</p>
                     <p>{findItem.price}</p>
-                    <button className="btn btn-danger">주문하기</button>
+                    <button className="btn btn-danger" onClick={()=>{
+                        dispatch(addItem({id: findItem.id, name: findItem.title, count: 1}));
+                    }}>주문하기</button>
                 </div>
+                <Nav.Link onClick={()=>{navigate('/cart')}}>Cart</Nav.Link>
+                <Routes>
+                    <Route path="/cart" element={<Cart/>} />
+                </Routes>
             </div>
             <Nav variant="tabs" defaultActiveKey="link0">
                 <Nav.Item>

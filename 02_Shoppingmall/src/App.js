@@ -7,7 +7,6 @@ import Detail from './Routes/Detail';
 import {Routes, Route, useNavigate, Outlet} from 'react-router-dom'
 import axios from 'axios';
 import Loading from './UI/Loading';
-import { useEffect } from 'react';
 import Cart from './Routes/Cart';
 
 function App() {
