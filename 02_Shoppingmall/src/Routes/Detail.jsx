@@ -6,6 +6,15 @@ import { addItem } from "../store";
 import Cart from "./Cart";
 
 function Detail(props) {
+    useEffect(()=>{
+        let found = localStorage.getItem('watched');
+        found = JSON.parse(found);
+        found.push(findItem.id);
+        found = new Set(found);
+        found = Array.from(found);
+
+        localStorage.setItem('watched', JSON.stringify(found))
+    }, [])
     let navigate = useNavigate();
     let [check, setCheck] = useState(true);
     let { id } = useParams();

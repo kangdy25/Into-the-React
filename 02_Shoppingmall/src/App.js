@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import {Navbar, Container, Nav} from 'react-bootstrap';
 import data from './data';
@@ -10,6 +10,10 @@ import Loading from './UI/Loading';
 import Cart from './Routes/Cart';
 
 function App() {
+  useEffect(()=>{
+    localStorage.setItem('watched', JSON.stringify([ ]))
+  }, [])
+
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   let [buttonCheck, setButtonCheck] = useState(0);
