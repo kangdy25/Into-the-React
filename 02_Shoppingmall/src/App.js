@@ -14,6 +14,10 @@ const Cart = lazy(()=> import('./Routes/Cart.jsx'));
 const Detail = lazy(()=> import('./Routes/Detail.jsx'));
 
 function App() {
+  useEffect(()=>{
+    localStorage.setItem('watched', JSON.stringify([ ]))
+  }, [])
+
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   let [buttonCheck, setButtonCheck] = useState(0);

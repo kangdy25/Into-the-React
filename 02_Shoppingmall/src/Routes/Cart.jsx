@@ -34,7 +34,7 @@ const Cart = () => {
                                     <td>안녕</td>
                                     <td><button onClick={()=>{
                                         dispatch(plusLike(state.cartData[i].id))
-                                    }}>+</button></td>
+                                    }}>+</button></td>``
                                     <td><button onClick={()=>{
                                         dispatch(deleteItem(state.cartData[i].id))
                                     }}>-</button></td>
