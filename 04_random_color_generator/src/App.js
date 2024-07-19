@@ -27,22 +27,22 @@ export default function RandomColor() {
     }
 
     useEffect(()=>{
-      if (typeOfColor === 'rgb') handleCreateRGBRandomColor()
-      else handleCreateHexRandomColor()
+        if (typeOfColor === 'rgb') handleCreateRGBRandomColor()
+        else handleCreateHexRandomColor()
     }, [typeOfColor])
 
     return (
         <div className="container"
         style={{width: "100vw",
-          height: "100vh", 
-          background: color,
-          textAlign: "center",}}>
-            <button onClick={()=>{
-              setTypeOfColor('hex')
-            }}>Create HEX Color</button>
-            <button onClick={()=>{
-              setTypeOfColor('rgb')
-            }}>Create RGB Color</button>
+            height: "100vh", 
+            background: color,
+            textAlign: "center",}}>
+                <button onClick={()=>{
+                setTypeOfColor('hex')
+                }}>Create HEX Color</button>
+                <button onClick={()=>{
+                setTypeOfColor('rgb')
+                }}>Create RGB Color</button>
             <button onClick={typeOfColor === 'hex' ? handleCreateHexRandomColor : handleCreateRGBRandomColor}>Generate Random Color</button>
             <div style={{
                 display : 'flex',
