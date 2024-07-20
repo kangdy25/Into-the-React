@@ -3,3 +3,11 @@ body {
     padding: 0;
     top: 0;
 }
+
+.active {
+    color: #fff700;
+}
+
+.inactive {
+    color: #000;
+}
