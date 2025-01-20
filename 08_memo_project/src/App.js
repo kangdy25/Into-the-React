@@ -18,10 +18,22 @@ function App() {
       updatedAt: 1737346168890,
     },
   ]);
+
+  const [selectedMemoIndex, setSelectedMemoIndex] = useState(0);
+  const setMemo = (newMemo) => {
+    const newMemos = [...memos];
+    newMemos[selectedMemoIndex] = newMemo;
+    setMemos(newMemos);
+  };
+
   return (
     <div className="App">
-      <Sidebar memos={memos} />
-      <MemoContainer />
+      <Sidebar
+        memos={memos}
+        selectedMemoIndex={selectedMemoIndex}
+        setSelectedMemoIndex={setSelectedMemoIndex}
+      />
+      <MemoContainer memo={memos[selectedMemoIndex]} setMemo={setMemo} />
     </div>
   );
 }

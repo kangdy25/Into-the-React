@@ -1,12 +1,33 @@
 import React from 'react';
 
-const MemoContainer = () => {
+const MemoContainer = ({ memo, setMemo }) => {
   return (
     <div className="MemoContainer">
       <div>
-        <input type="text" className="MemoContainer__title" />
+        <input
+          type="text"
+          value={memo.title}
+          className="MemoContainer__title"
+          onChange={(e) => {
+            setMemo({
+              ...memo,
+              title: e.target.value,
+              updatedAt: new Date().getTime(),
+            });
+          }}
+        />
       </div>
-      <textarea className="MemoContainer__content" />
+      <textarea
+        value={memo.content}
+        className="MemoContainer__content"
+        onChange={(e) => {
+          setMemo({
+            ...memo,
+            content: e.target.value,
+            updatedAt: new Date().getTime(),
+          });
+        }}
+      />
     </div>
   );
 };
