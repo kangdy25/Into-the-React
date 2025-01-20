@@ -1,5 +1,5 @@
 import React from 'react';
-import MemoItem from './MemoItem';
+import MemoItem from '../MemoItem';
 
 const MemoList = ({
   memos,

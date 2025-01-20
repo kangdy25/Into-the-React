@@ -1,4 +1,5 @@
 import React from 'react';
+import './index.css';
 
 const MemoContainer = ({ memo, setMemo }) => {
   if (memo === undefined) {
