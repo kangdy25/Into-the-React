@@ -21,6 +21,22 @@
   font-weight: 600;
 }
 
+.SidebarFooter {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.SidebarFooter__add-button {
+  background: none;
+  border-radius: 100px;
+  border: 2px solid #555;
+  color: #555;
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
 .MemoContainer {
   background: #ccc;
   flex: 1;

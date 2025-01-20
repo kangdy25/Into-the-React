@@ -3,7 +3,12 @@ import MemoList from './MemoList';
 import SidebarHeader from './SidebarHeader';
 import SidebarFooter from './SidebarFooter';
 
-const Sidebar = ({ memos, selectedMemoIndex, setSelectedMemoIndex }) => {
+const Sidebar = ({
+  memos,
+  addMemo,
+  selectedMemoIndex,
+  setSelectedMemoIndex,
+}) => {
   return (
     <div className="Sidebar">
       <SidebarHeader />
@@ -12,7 +17,7 @@ const Sidebar = ({ memos, selectedMemoIndex, setSelectedMemoIndex }) => {
         selectedMemoIndex={selectedMemoIndex}
         setSelectedMemoIndex={setSelectedMemoIndex}
       />
-      <SidebarFooter />
+      <SidebarFooter onClick={addMemo} />
     </div>
   );
 };
