@@ -9,16 +9,32 @@
 }
 
 .MemoItem {
+  position: relative;
   width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
   padding: 5px 8px;
+  box-sizing: border-box;
 }
 
 .MemoItem.selected {
-  background: rgba(216, 158, 158, 0.5);
+  background: rgba(158, 216, 191, 0.5);
   font-weight: 600;
+}
+
+.MemoItem_delete-button {
+  background: none;
+  color: red;
+  border: none;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  display: none;
+}
+
+.MemoItem:hover .MemoItem_delete-button {
+  display: inline-block;
 }
 
 .SidebarFooter {

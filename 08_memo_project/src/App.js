@@ -40,6 +40,15 @@ function App() {
     setSelectedMemoIndex(memos.length);
   };
 
+  const deleteMemo = (index) => {
+    const newMemo = [...memos];
+    newMemo.splice(index, 1);
+    setMemos(newMemo);
+    if (index === selectedMemoIndex) {
+      setSelectedMemoIndex(0);
+    }
+  };
+
   return (
     <div className="App">
       <Sidebar
@@ -47,6 +56,7 @@ function App() {
         addMemo={addMemo}
         selectedMemoIndex={selectedMemoIndex}
         setSelectedMemoIndex={setSelectedMemoIndex}
+        deleteMemo={deleteMemo}
       />
       <MemoContainer memo={memos[selectedMemoIndex]} setMemo={setMemo} />
     </div>

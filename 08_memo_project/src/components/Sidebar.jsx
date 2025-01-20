@@ -8,6 +8,7 @@ const Sidebar = ({
   addMemo,
   selectedMemoIndex,
   setSelectedMemoIndex,
+  deleteMemo,
 }) => {
   return (
     <div className="Sidebar">
@@ -16,6 +17,7 @@ const Sidebar = ({
         memos={memos}
         selectedMemoIndex={selectedMemoIndex}
         setSelectedMemoIndex={setSelectedMemoIndex}
+        deleteMemo={deleteMemo}
       />
       <SidebarFooter onClick={addMemo} />
     </div>

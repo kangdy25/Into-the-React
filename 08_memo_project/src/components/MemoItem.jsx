@@ -1,12 +1,15 @@
 import React from 'react';
 
-const MemoItem = ({ children, onClick, isSelected }) => {
+const MemoItem = ({ children, onClickItem, onClickDelete, isSelected }) => {
   return (
     <div
       className={'MemoItem' + ' ' + (isSelected ? 'selected' : '')}
-      onClick={onClick}
+      onClickItem={onClickItem}
     >
       {children}
+      <button className="MemoItem_delete-button" onClick={onClickDelete}>
+        X
+      </button>
     </div>
   );
 };
