@@ -1,48 +1,62 @@
 import './App.css';
 import Sidebar from './components/Sidebar';
 import MemoContainer from './components/MemoContainer';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getItem, setItem } from './lib/storage';
+import debounce from 'lodash.debounce';
+
+const debounceSetItem = debounce(setItem, 3000);
 
 function App() {
   const [memos, setMemos] = useState(getItem('memo') || []);
-
   const [selectedMemoIndex, setSelectedMemoIndex] = useState(0);
 
-  const setMemo = (newMemo) => {
-    const newMemos = [...memos];
-    newMemos[selectedMemoIndex] = newMemo;
-    setMemos(newMemos);
+  const setMemo = useCallback(
+    (newMemo) => {
+      setMemos((memos) => {
+        const newMemos = [...memos];
+        newMemos[selectedMemoIndex] = newMemo;
+        debounceSetItem('memo', newMemos);
 
-    setItem('memo', newMemos);
-  };
+        return newMemos;
+      });
+    },
+    [selectedMemoIndex],
+  );
 
-  const addMemo = () => {
-    const newMemos = [
-      ...memos,
-      {
-        title: 'Untitled',
-        content: '',
-        createdAt: new Date().getTime(),
-        updatedAt: new Date().getTime(),
-      },
-    ];
+  const addMemo = useCallback(() => {
+    setMemos((memos) => {
+      const newMemos = [
+        ...memos,
+        {
+          title: 'Untitled',
+          content: '',
+          createdAt: new Date().getTime(),
+          updatedAt: new Date().getTime(),
+        },
+      ];
+      debounceSetItem('memo', newMemos);
 
-    setMemos(newMemos);
+      return newMemos;
+    });
     setSelectedMemoIndex(memos.length);
+  }, [memos]);
 
-    setItem('memo', newMemos);
-  };
+  const deleteMemo = useCallback(
+    (index) => {
+      setMemos((memos) => {
+        const newMemos = [...memos];
+        newMemos.splice(index, 1);
+        debounceSetItem('memo', newMemos);
 
-  const deleteMemo = (index) => {
-    const newMemos = [...memos];
-    newMemos.splice(index, 1);
-    setMemos(newMemos);
-    if (index === selectedMemoIndex) {
-      setSelectedMemoIndex(0);
-    }
-    setItem('memo', newMemos);
-  };
+        return newMemos;
+      });
+      if (index === selectedMemoIndex) {
+        setSelectedMemoIndex(0);
+      }
+    },
+    [selectedMemoIndex],
+  );
 
   return (
     <div className="App">
