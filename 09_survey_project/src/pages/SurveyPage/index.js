@@ -12,27 +12,33 @@ const SurveyPage = () => {
       desc: '설명 1 입니다.',
       type: 'text',
       required: false,
-      options: {},
+      options: {
+        placeholder: 'placeholder 입니다.',
+      },
     },
     {
       title: '질문 2 입니다.',
       desc: '설명 2 입니다.',
-      type: 'text',
+      type: 'textarea',
       required: true,
-      options: {},
+      options: {
+        placeholder: 'placeholder 입니다.',
+      },
     },
     {
       title: '질문 3 입니다.',
       desc: '설명 3 입니다.',
-      type: 'text',
+      type: 'select',
       required: false,
-      options: {},
+      options: {
+        items: ['답변1', '답변2', '답변3', '답변4', '답변5'],
+      },
     },
   ];
 
   const step = parseInt(params.step);
 
-  const [answers, setAnswers] = useState(['', '', '']);
+  const [answers, setAnswers] = useState([]);
 
   return (
     <div>
