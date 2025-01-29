@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TextAreaInput = ({ answers, setAnswers, options }) => {
+const TextAreaInput = ({ answer = '', setAnswer, options }) => {
   return (
     <TextArea
       type="text"
-      value={answers}
+      value={answer}
       placeholder={options.placeholder}
       onChange={(e) => {
-        setAnswers(e.target.value);
+        setAnswer(e.target.value);
       }}
     ></TextArea>
   );

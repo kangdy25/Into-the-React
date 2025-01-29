@@ -9,20 +9,29 @@ const QuestionBox = ({
   question,
   questionsLength,
   step,
-  answers,
-  setAnswers,
+  answer,
+  setAnswer,
 }) => {
+  if (!question) {
+    return null;
+  }
+
   return (
     <QuestionBoxWrapper>
       <Title>{question.title}</Title>
       <Desc>{question.desc}</Desc>
       <Body
         type={question.type}
-        answers={answers}
-        setAnswers={setAnswers}
+        answer={answer}
+        setAnswer={setAnswer}
         options={question.options}
       />
-      <ActionButtons questionsLength={questionsLength} step={step} />
+      <ActionButtons
+        questionsLength={questionsLength}
+        step={step}
+        answer={answer}
+        setAnswer={setAnswer}
+      />
     </QuestionBoxWrapper>
   );
 };

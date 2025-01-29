@@ -1,61 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 // import ProgressIndicator from '../../components/ProgressIndicator';
 import QuestionBox from '../../components/QuestionBox';
-import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import useStep from '../../hooks/useStep';
+import useSurveyId from '../../hooks/useSurveyId';
+import mainApi from '../../services/apis/mainApi';
 
 const SurveyPage = () => {
-  const params = useParams();
-  const questions = [
-    {
-      title: '질문 1입니다.',
-      desc: '설명 1입니다.',
-      type: 'text',
-      required: false,
-      options: {
-        placeholder: 'placeholder 입니다.',
-      },
-    },
-    {
-      title: '질문 2입니다.',
-      desc: '설명 2입니다.',
-      type: 'textarea',
-      required: true,
-      options: {
-        placeholder: 'placeholder 입니다.',
-      },
-    },
-    {
-      title: '질문 3입니다.',
-      desc: '설명 3입니다.',
-      type: 'select',
-      required: false,
-      options: {
-        items: ['답변1', '답변2', '답변3', '답변4', '답변5'],
-      },
-    },
-  ];
+  const step = useStep();
+  const surveyId = useSurveyId();
+  const [surveyState, setSurveyState] = useState(null);
+  const surveyQuestions = surveyState?.questions || [];
 
-  const step = parseInt(params.step);
+  useEffect(() => {
+    mainApi.get(`surveys/${surveyId}`).then((res) => {
+      console.log(res);
+      setSurveyState(res.data);
+    });
+  }, [surveyId]);
 
   const [answers, setAnswers] = useState([]);
+  const answer = answers[step];
+  const setAnswer = (newAnswer) => {
+    setAnswers((answers) => {
+      const newAnswers = [...answers];
+      newAnswers[step] = newAnswer;
+      return newAnswers;
+    });
+  };
 
   return (
     <SurveyPageWrapper>
-      {/* <ProgressIndicator /> */}
+      =
       <QuestionBox
-        question={questions[step]}
-        questionsLength={questions.length}
+        question={surveyQuestions[step]}
+        questionsLength={surveyQuestions.length}
         step={step}
-        answers={answers[step]}
-        setAnswers={(newAnswer) => {
-          setAnswers((answers) => {
-            const newAnswers = [...answers];
-            newAnswers[step] = newAnswer;
-            return newAnswers;
-          });
-        }}
+        answer={answer}
+        setAnswer={setAnswer}
       />
     </SurveyPageWrapper>
   );

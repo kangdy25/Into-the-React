@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TextInput = ({ answers, setAnswers }) => {
+const TextInput = ({ answer = '', setAnswer, options }) => {
   return (
     <Input
       type="text"
-      value={answers}
+      value={answer}
       onChange={(e) => {
-        setAnswers(e.target.value);
+        setAnswer(e.target.value);
       }}
+      placeholder={options.placeholder}
     ></Input>
   );
 };
