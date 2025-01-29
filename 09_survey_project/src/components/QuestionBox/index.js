@@ -1,21 +1,28 @@
-import React from 'react';
-import Title from '../Title';
-import Desc from '../Desc';
-import Body from '../Body';
-import ActionButtons from '../ActionButtons';
+import { useParams } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
-const QuestionBox = ({
-  question,
-  questionsLength,
-  step,
-  answer,
-  setAnswer,
-}) => {
-  if (!question) {
-    return null;
-  }
+import answersState from '../../stores/answers/atom';
+import questionsState from '../../stores/questions/atom';
+import ActionButtons from '../ActionButtons';
+import Body from '../Body';
+import Desc from '../Desc';
+import Title from '../Title';
 
+function QuestionBox() {
+  const params = useParams();
+  const step = parseInt(params.step);
+  const questions = useRecoilValue(questionsState);
+  const [answers, setAnswers] = useRecoilState(answersState);
+  const question = questions[step];
+  const answer = answers[step];
+  const setAnswer = (newAnswer) => {
+    setAnswers((answers) => {
+      const newAnswers = [...answers];
+      newAnswers[step] = newAnswer;
+      return newAnswers;
+    });
+  };
   return (
     <QuestionBoxWrapper>
       <Title>{question.title}</Title>
@@ -26,15 +33,10 @@ const QuestionBox = ({
         setAnswer={setAnswer}
         options={question.options}
       />
-      <ActionButtons
-        questionsLength={questionsLength}
-        step={step}
-        answer={answer}
-        setAnswer={setAnswer}
-      />
+      <ActionButtons />
     </QuestionBoxWrapper>
   );
-};
+}
 
 const QuestionBoxWrapper = styled.div`
   display: flex;

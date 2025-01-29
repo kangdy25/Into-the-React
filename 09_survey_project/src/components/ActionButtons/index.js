@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../Button';
+import { useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import postAnswers from '../../services/postAnswers';
-import useSurveyId from '../../hooks/useSurveyId';
 
-const ActionButtons = ({ questionsLength, step, answer, setAnswer }) => {
-  const surveyId = useSurveyId();
+import questionsState from '../../stores/questions/atom';
+import Button from '../Button';
+
+function ActionButtons() {
+  const params = useParams();
+  const step = parseInt(params.step);
+  const questions = useRecoilValue(questionsState);
+  const questionsLength = questions.length;
   const isLast = questionsLength - 1 === step;
   const navigate = useNavigate();
-
-  const [answers, setAnswers] = [answer, setAnswer];
-  useEffect(() => {
-    if (answer !== null && answer !== '') {
-      setAnswers((prev) => [...prev, answer]); // answer가 있을 때만 추가
-    }
-  }, [answer]); // answer가 변경될 때만 실행
 
   return (
     <ActionButtonsWrapper>
@@ -33,7 +30,6 @@ const ActionButtons = ({ questionsLength, step, answer, setAnswer }) => {
         <Button
           type="PRIMARY"
           onClick={() => {
-            postAnswers(surveyId, answers);
             navigate('/done');
           }}
         >
@@ -51,13 +47,13 @@ const ActionButtons = ({ questionsLength, step, answer, setAnswer }) => {
       )}
     </ActionButtonsWrapper>
   );
-};
+}
 
 const ActionButtonsWrapper = styled.div`
   margin-top: 72px;
   display: flex;
-  justify-content: center;
   gap: 16px;
+  justify-content: center;
 `;
 
 export default ActionButtons;
