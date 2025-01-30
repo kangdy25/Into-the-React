@@ -10,6 +10,7 @@ const TextAreaInput = ({ answer = '', setAnswer, options }) => {
       onChange={(e) => {
         setAnswer(e.target.value);
       }}
+      {...(options?.max && { maxLength: options?.max })}
     ></TextArea>
   );
 };

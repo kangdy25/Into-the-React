@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
@@ -8,13 +9,14 @@ import postAnswers from '../../services/postAnswers';
 import useStep from '../../hooks/useStep';
 import useSurveyId from '../../hooks/useSurveyId';
 import useAnswers from '../../hooks/useAnswers';
-import { useState } from 'react';
+import useRequiredOption from '../../hooks/useRequiredOption';
 
 function ActionButtons() {
   const step = useStep();
   const surveyId = useSurveyId();
   const [isPosting, setIsPosting] = useState(false);
   const questionsLength = useRecoilValue(questionsLengthState);
+  const isRequired = useRequiredOption;
   const answers = useAnswers();
 
   const isLast = questionsLength - 1 === step;
@@ -46,7 +48,7 @@ function ActionButtons() {
                 setIsPosting(false);
               });
           }}
-          disabled={isPosting}
+          disabled={isPosting || isRequired ? !answers[step]?.length : false}
         >
           {isPosting ? '제출 중입니다...' : '제출'}
         </Button>
@@ -56,6 +58,7 @@ function ActionButtons() {
           onClick={() => {
             navigate(`${step + 1}`);
           }}
+          disabled={!isRequired ? !answers[step]?.length : false}
         >
           다음
         </Button>
