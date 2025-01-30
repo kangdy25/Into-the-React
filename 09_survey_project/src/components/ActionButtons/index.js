@@ -17,7 +17,7 @@ function ActionButtons() {
   const [isPosting, setIsPosting] = useState(false);
   const questionsLength = useRecoilValue(questionsLengthState);
   const isRequired = useRequiredOption;
-  const answers = useAnswers();
+  const [answers, setAnswers] = useAnswers();
 
   const isLast = questionsLength - 1 === step;
   const navigate = useNavigate();
@@ -42,6 +42,7 @@ function ActionButtons() {
             postAnswers(surveyId, answers)
               .then(() => {
                 navigate(`/done/${surveyId}`);
+                setAnswers([]);
               })
               .catch((err) => {
                 alert('에러가 발생했습니다. 다시 시도해주세요');

@@ -1,8 +1,8 @@
 import { selector } from 'recoil';
 import surveyState from './surveyState';
 
-const questionsLength = selector({
-  key: 'questionsLength',
+const questionsLengthState = selector({
+  key: 'questionsLengthState',
   get: ({ get }) => {
     const questions = get(surveyState).questions;
 
@@ -10,4 +10,4 @@ const questionsLength = selector({
   },
 });
 
-export default questionsLength;
+export default questionsLengthState;

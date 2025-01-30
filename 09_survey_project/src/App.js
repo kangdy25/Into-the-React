@@ -23,11 +23,12 @@ const AppWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #e5e5e5;
+  background: #f5f5f5;
 `;
 
 const Box = styled.div`
   display: flex;
+  position: relative;
   box-sizing: border-box;
   background: #ffffff;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07);
