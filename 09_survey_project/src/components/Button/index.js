@@ -5,9 +5,10 @@ const colorMap = { PRIMARY, SECONDARY, TERTIARY };
 
 const Button = styled.button`
   padding: 16px 24px;
-  width: 200px;
+  min-width: 200px;
   border-radius: 4px;
   font-weight: bold;
+  font-size: 18px;
 
   color: ${({ type }) => colorMap[type].BUTTON.DEFAULT.COLOR};
   background: ${({ type }) => colorMap[type].BUTTON.DEFAULT.BACKGROUND};

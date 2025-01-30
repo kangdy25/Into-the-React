@@ -8,10 +8,12 @@ import postAnswers from '../../services/postAnswers';
 import useStep from '../../hooks/useStep';
 import useSurveyId from '../../hooks/useSurveyId';
 import useAnswers from '../../hooks/useAnswers';
+import { useState } from 'react';
 
 function ActionButtons() {
   const step = useStep();
   const surveyId = useSurveyId();
+  const [isPosting, setIsPosting] = useState(false);
   const questionsLength = useRecoilValue(questionsLengthState);
   const answers = useAnswers();
 
@@ -22,7 +24,7 @@ function ActionButtons() {
     <ActionButtonsWrapper>
       {step === 0 || (
         <Button
-          type="TERTIARY"
+          type="SECONDARY"
           onClick={() => {
             navigate(`${step - 1}`);
           }}
@@ -34,11 +36,19 @@ function ActionButtons() {
         <Button
           type="PRIMARY"
           onClick={() => {
-            postAnswers(surveyId, answers);
-            navigate('/done');
+            setIsPosting(true);
+            postAnswers(surveyId, answers)
+              .then(() => {
+                navigate(`/done/${surveyId}`);
+              })
+              .catch((err) => {
+                alert('에러가 발생했습니다. 다시 시도해주세요');
+                setIsPosting(false);
+              });
           }}
+          disabled={isPosting}
         >
-          제출
+          {isPosting ? '제출 중입니다...' : '제출'}
         </Button>
       ) : (
         <Button
