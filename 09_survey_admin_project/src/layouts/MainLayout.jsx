@@ -1,14 +1,14 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
+import { Link } from 'react-router-dom';
 
 const { Header, Content, Sider } = Layout;
 
 const menuItems = [
-  { key: '1', label: '설문조사 파일' },
-  { key: '2', label: '설문조사 관리' },
+  { key: 'list', label: <Link to="/list">설문조사 관리</Link> },
 ];
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ selectedKeys, children }) => {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider>
@@ -24,9 +24,9 @@ const MainLayout = ({ children }) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
+          selectedKeys={selectedKeys}
           items={menuItems}
-        />
+        ></Menu>
       </Sider>
       <Layout>
         <Header />
