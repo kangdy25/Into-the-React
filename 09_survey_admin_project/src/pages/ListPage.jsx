@@ -11,7 +11,7 @@ const ListPage = () => {
   if (error) {
     return 'error';
   }
-  return <MainLayout>ListPage</MainLayout>;
+  return <MainLayout selectedKeys={['list']}>ListPage</MainLayout>;
 };
 
 export default ListPage;
