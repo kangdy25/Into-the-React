@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Layout, Menu } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -9,6 +9,10 @@ const menuItems = [
 ];
 
 const MainLayout = ({ selectedKeys, children }) => {
+  const connectStyle = useMemo(() => {
+    return { padding: 30 };
+  }, []);
+
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider>
@@ -30,7 +34,7 @@ const MainLayout = ({ selectedKeys, children }) => {
       </Sider>
       <Layout>
         <Header />
-        <Content>{children}</Content>
+        <Content style={connectStyle}>{children}</Content>
       </Layout>
     </Layout>
   );
