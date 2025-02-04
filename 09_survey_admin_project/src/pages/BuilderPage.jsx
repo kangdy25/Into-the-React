@@ -3,6 +3,7 @@ import MainLayout from '../layouts/MainLayout';
 import { Col, Row, Input } from 'antd';
 import PreviewSecion from '../components/PreviewSecion';
 import OptionSection from '../components/OptionSection';
+import { produce } from 'immer';
 
 const BuilderPage = () => {
   const [data, setData] = useState({
@@ -48,13 +49,35 @@ const BuilderPage = () => {
       <Row>
         <Col flex="auto">
           <Input
-            placeholder="설문 제목을 입력해ㅔ주세요."
+            placeholder="설문 제목을 입력해주세요."
             value={data.title}
             onChange={(e) => {
-              setData((state) => ({ ...state, title: e.target.value }));
+              setData(
+                produce((draft) => {
+                  draft.title = e.target.value;
+                }),
+              );
             }}
           />
-          <PreviewSecion questions={data.questions} />
+          <PreviewSecion
+            questions={data.questions}
+            addQuestion={() => {
+              setData(
+                produce((draft) => {
+                  draft.questions.push({
+                    title: 'Untitled',
+                    desc: '',
+                    type: 'text',
+                    required: false,
+                    options: {
+                      max: 20,
+                      placeholder: '',
+                    },
+                  });
+                }),
+              );
+            }}
+          />
         </Col>
         <Col flex="350px">
           <OptionSection />

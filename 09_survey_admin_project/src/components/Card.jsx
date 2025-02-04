@@ -8,7 +8,7 @@ const Card = ({ title, desc, children }) => {
         <Title>{title}</Title>
         <Desc>{desc}</Desc>
       </Head>
-      <Body>{children}</Body>
+      <BodyWrapper>{children}</BodyWrapper>
     </CardWrapper>
   );
 };
@@ -32,7 +32,7 @@ const Desc = styled.div`
   color: #666;
   margin-top: 10px;
 `;
-const Body = styled.div`
+const BodyWrapper = styled.div`
   padding: 15px;
 `;
 export default Card;
