@@ -30,8 +30,8 @@ const BuilderPage = () => {
           />
           <PreviewSecion
             questions={survey.questions}
-            addQuestion={() => {
-              dispatch(addQuestion());
+            addQuestion={(type) => {
+              dispatch(addQuestion(type));
             }}
             moveUpQuestion={(index) => {
               if (index === 0) return;

@@ -24,7 +24,7 @@ const PreviewSecion = ({
           <Body type={question.type} options={question.options}></Body>
         </Card>
       ))}
-      <AddButton onClick={addQuestion} />
+      <AddButton addQuestion={addQuestion} />
     </div>
   );
 };
