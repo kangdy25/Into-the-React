@@ -11,7 +11,7 @@ export const surveySlice = createSlice({
   initialState,
   reducers: {
     setTitle: (state, action) => {
-      state.title = action.payload;
+      state.data.title = action.payload;
     },
     addQuestion: (state, action) => {
       const type = action.payload;
@@ -28,7 +28,7 @@ export const surveySlice = createSlice({
         };
       }
 
-      state.questions.push({
+      state.data.questions.push({
         title: 'Untitled',
         desc: '',
         type,
@@ -38,22 +38,22 @@ export const surveySlice = createSlice({
     },
     moveUpQuestion: (state, action) => {
       const index = action.payload;
-      const temp = state.questions[index];
+      const temp = state.data.questions[index];
 
-      state.questions[index] = state.questions[index - 1];
-      state.questions[index - 1] = temp;
+      state.data.questions[index] = state.data.questions[index - 1];
+      state.data.questions[index - 1] = temp;
     },
     moveDownQuestion: (state, action) => {
       const index = action.payload;
-      const temp = state.questions[index];
+      const temp = state.data.questions[index];
 
-      state.questions[index] = state.questions[index + 1];
-      state.questions[index + 1] = temp;
+      state.data.questions[index] = state.data.questions[index + 1];
+      state.data.questions[index + 1] = temp;
     },
-    moveDeleteQuestion: (state, action) => {
+    deleteQuestion: (state, action) => {
       const index = action.payload;
 
-      state.questions.splice(index, 1);
+      state.data.questions.splice(index, 1);
     },
     setSurvey: (state, action) => {
       state.data = action.payload;
@@ -73,7 +73,7 @@ export const {
   addQuestion,
   moveUpQuestion,
   moveDownQuestion,
-  moveDeleteQuestion,
+  deleteQuestion,
   setSurvey,
   setError,
   setLoading,

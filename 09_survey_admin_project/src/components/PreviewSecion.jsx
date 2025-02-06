@@ -1,15 +1,37 @@
 import React from 'react';
-import Card from './Card';
-import Body from './Body';
 import AddButton from './AddButton';
-
-const PreviewSecion = ({
-  questions,
+import Body from './Body';
+import Card from './Card';
+import { useDispatch, useSelector } from 'react-redux';
+import {
   addQuestion,
   moveUpQuestion,
   moveDownQuestion,
-  moveDeleteQuestion,
-}) => {
+  deleteQuestion,
+} from '../stores/survey/surveySlice';
+
+const PreviewSecion = () => {
+  const questions = useSelector((state) => state.survey.data?.questions || []);
+  const dispatch = useDispatch();
+
+  const handleAddQuestion = (type) => {
+    dispatch(addQuestion(type));
+  };
+
+  const handleMoveUpQuestion = (index) => {
+    if (index === 0) return;
+    dispatch(moveUpQuestion(index));
+  };
+
+  const handleMoveDownQuestion = (index) => {
+    if (index === questions.length - 1) return;
+    dispatch(moveDownQuestion(index));
+  };
+
+  const handleDeleteQuestion = (index) => {
+    dispatch(deleteQuestion(index));
+  };
+
   return (
     <div>
       {questions.map((question, index) => (
@@ -17,14 +39,14 @@ const PreviewSecion = ({
           key={index}
           title={question.title}
           desc={question.desc}
-          onUpButtonClick={() => moveUpQuestion(index)}
-          onDownButtonClick={() => moveDownQuestion(index)}
-          onDeleteButtonClick={() => moveDeleteQuestion(index)}
+          onUpButtonClick={() => handleMoveUpQuestion(index)}
+          onDownButtonClick={() => handleMoveDownQuestion(index)}
+          onDeleteButtonClick={() => handleDeleteQuestion(index)}
         >
           <Body type={question.type} options={question.options}></Body>
         </Card>
       ))}
-      <AddButton addQuestion={addQuestion} />
+      <AddButton addQuestion={handleAddQuestion} />
     </div>
   );
 };

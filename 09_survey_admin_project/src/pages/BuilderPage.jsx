@@ -1,27 +1,18 @@
-import { Col, Row, Input } from 'antd';
+import { Col, Row } from 'antd';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import MainLayout from '../layouts/MainLayout';
+import fetchSurvey from '../services/fetchSurvey';
 import PreviewSecion from '../components/PreviewSecion';
 import OptionSection from '../components/OptionSection';
-
-import {
-  setTitle,
-  addQuestion,
-  moveUpQuestion,
-  moveDownQuestion,
-  moveDeleteQuestion,
-  setSurvey,
-} from '../stores/survey/surveySlice';
-import { useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import fetchSurvey from '../services/fetchSurvey';
+import BuilderTitleInput from '../components/Input/BuilderTitleInput';
 
 const BuilderPage = () => {
-  const dispatch = useDispatch();
-  const survey = useSelector((state) => state.survey.data);
   const error = useSelector((state) => state.survey.error);
   const loading = useSelector((state) => state.survey.loading);
+  const dispatch = useDispatch();
   const params = useParams();
 
   useEffect(() => {
@@ -29,37 +20,14 @@ const BuilderPage = () => {
   }, [dispatch, params.surveyId]);
 
   if (error) return 'error';
-
-  if (!survey || loading) return 'loading';
+  if (loading) return 'loading';
 
   return (
     <MainLayout selectedKeys={['builder']}>
       <Row>
         <Col flex="auto">
-          <Input
-            placeholder="설문 제목을 입력해주세요."
-            value={survey.title}
-            onChange={(e) => {
-              dispatch(setTitle(e.target.value));
-            }}
-          />
-          <PreviewSecion
-            questions={survey.questions}
-            addQuestion={(type) => {
-              dispatch(addQuestion(type));
-            }}
-            moveUpQuestion={(index) => {
-              if (index === 0) return;
-              dispatch(moveUpQuestion(index));
-            }}
-            moveDownQuestion={(index) => {
-              if (index === survey.questions.length - 1) return;
-              dispatch(moveDownQuestion(index));
-            }}
-            moveDeleteQuestion={(index) => {
-              dispatch(moveDeleteQuestion(index));
-            }}
-          />
+          <BuilderTitleInput />
+          <PreviewSecion />
         </Col>
         <Col flex="350px">
           <OptionSection />
