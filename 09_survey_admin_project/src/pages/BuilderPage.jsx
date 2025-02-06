@@ -11,11 +11,26 @@ import {
   moveUpQuestion,
   moveDownQuestion,
   moveDeleteQuestion,
+  setSurvey,
 } from '../stores/survey/surveySlice';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import fetchSurvey from '../services/fetchSurvey';
 
 const BuilderPage = () => {
   const dispatch = useDispatch();
-  const survey = useSelector((state) => state.survey);
+  const survey = useSelector((state) => state.survey.data);
+  const error = useSelector((state) => state.survey.error);
+  const loading = useSelector((state) => state.survey.loading);
+  const params = useParams();
+
+  useEffect(() => {
+    dispatch(fetchSurvey(params.surveyId));
+  }, [dispatch, params.surveyId]);
+
+  if (error) return 'error';
+
+  if (!survey || loading) return 'loading';
 
   return (
     <MainLayout selectedKeys={['builder']}>
