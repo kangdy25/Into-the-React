@@ -8,9 +8,9 @@ const menuItems = [
   { key: 'list', label: <Link to="/list">설문조사 관리</Link> },
 ];
 
-const MainLayout = ({ selectedKeys, children }) => {
+const MainLayout = ({ selectedKeys, children, padding = 30 }) => {
   const connectStyle = useMemo(() => {
-    return { padding: 30 };
+    return { padding };
   }, []);
 
   return (

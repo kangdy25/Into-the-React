@@ -10,14 +10,16 @@ const Card = ({
   onUpButtonClick,
   onDownButtonClick,
   onDeleteButtonClick,
+  onClick,
+  isSelected,
 }) => {
   return (
-    <CardWrapper>
-      <Head>
+    <CardWrapper selected={isSelected}>
+      <Head onClick={onClick}>
         <Title>{title}</Title>
         <Desc>{desc}</Desc>
       </Head>
-      <BodyWrapper>{children}</BodyWrapper>
+      <BodyWrapper onClick={onClick}>{children}</BodyWrapper>
 
       <ButtonGroupWrapper>
         <ButtonGroup>
@@ -53,7 +55,8 @@ const ButtonGroup = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  border: 1px solid #ddd;
+  border: ${({ selected }) =>
+    selected ? '3px solid blue' : '1px solid #dddddd'};
   width: 500px;
   margin: 30px auto;
   background: #fff;

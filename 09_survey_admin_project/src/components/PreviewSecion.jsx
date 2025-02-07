@@ -9,10 +9,14 @@ import {
   moveDownQuestion,
   deleteQuestion,
 } from '../stores/survey/surveySlice';
+import { setSelectedQuestionId } from '../stores/selectedQuestionId/selectedQuestionIdSlice';
 
 const PreviewSecion = () => {
   const questions = useSelector((state) => state.survey.data?.questions || []);
   const dispatch = useDispatch();
+  const selectedQuestionId = useSelector(
+    (state) => state.selectedQuestionId.data,
+  );
 
   const handleAddQuestion = (type) => {
     dispatch(addQuestion(type));
@@ -32,6 +36,9 @@ const PreviewSecion = () => {
     dispatch(deleteQuestion(index));
   };
 
+  const handleCardClick = (index) => {
+    dispatch(setSelectedQuestionId(index));
+  };
   return (
     <div>
       {questions.map((question, index) => (
@@ -42,6 +49,8 @@ const PreviewSecion = () => {
           onUpButtonClick={() => handleMoveUpQuestion(index)}
           onDownButtonClick={() => handleMoveDownQuestion(index)}
           onDeleteButtonClick={() => handleDeleteQuestion(index)}
+          onClick={() => handleCardClick(index)}
+          isSelected={selectedQuestionId === index}
         >
           <Body type={question.type} options={question.options}></Body>
         </Card>
