@@ -9,6 +9,8 @@ import PreviewSecion from '../components/PreviewSecion';
 import OptionSection from '../components/OptionSection';
 import BuilderTitleInput from '../components/Input/BuilderTitleInput';
 import FloatingButton from '../components/FloatingButton';
+import { setSurvey } from '../stores/survey/surveySlice';
+import { setSelectedQuestionId } from '../stores/selectedQuestionId/selectedQuestionIdSlice';
 
 const BuilderPage = () => {
   const error = useSelector((state) => state.survey.error);
@@ -17,7 +19,17 @@ const BuilderPage = () => {
   const params = useParams();
 
   useEffect(() => {
-    dispatch(fetchSurvey(params.surveyId));
+    if (params.surveyId) {
+      dispatch(fetchSurvey(params.surveyId));
+    } else {
+      dispatch(
+        setSurvey({
+          title: '',
+          questions: [],
+        }),
+      );
+      dispatch(setSelectedQuestionId(null));
+    }
   }, [dispatch, params.surveyId]);
 
   if (error) return 'error';
