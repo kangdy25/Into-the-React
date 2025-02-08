@@ -11,7 +11,7 @@ const menuItems = [
 const MainLayout = ({ selectedKeys, children, padding = 30 }) => {
   const connectStyle = useMemo(() => {
     return { padding };
-  }, []);
+  }, [padding]);
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

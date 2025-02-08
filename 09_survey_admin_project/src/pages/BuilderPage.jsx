@@ -8,6 +8,7 @@ import fetchSurvey from '../services/fetchSurvey';
 import PreviewSecion from '../components/PreviewSecion';
 import OptionSection from '../components/OptionSection';
 import BuilderTitleInput from '../components/Input/BuilderTitleInput';
+import FloatingButton from '../components/FloatingButton';
 
 const BuilderPage = () => {
   const error = useSelector((state) => state.survey.error);
@@ -33,6 +34,7 @@ const BuilderPage = () => {
           <OptionSection />
         </Col>
       </Row>
+      <FloatingButton />
     </MainLayout>
   );
 };
