@@ -39,13 +39,11 @@ function App() {
     setTodos([newTodo, ...todos])
   }
 
-  console.log(todos)
-
   return (
     <div className='App'>
       <Header />
       <Editor onCreate={onCreate}/>
-      <List />
+      <List todos={todos}/>
     </div>
   )
 }
