@@ -1,6 +1,6 @@
 import './List.css'
 import TodoItem from './TodoItem'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 const List = ({todos, onUpdate, onDelete}) => {
   const [search, setSearch] = useState("");
@@ -19,6 +19,15 @@ const List = ({todos, onUpdate, onDelete}) => {
   }
 
   const filteredTodos = getFilteredData();
+
+  const {totalCount, doneCount, notDoneCount} = useMemo(() => {
+    console.log("");
+    const totalCount = todos.length;
+    const doneCount = todos.filter((todo) => todo.isDone).length;
+    const notDoneCount = totalCount - doneCount;
+
+    return {totalCount, doneCount, notDoneCount}
+  }, [todos])
 
   return (
     <div className='List'>
