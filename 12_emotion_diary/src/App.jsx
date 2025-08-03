@@ -7,12 +7,18 @@ import Diary from './pages/Diary'
 import Notfound from './pages/Notfound'
 import { getEmotionImages } from './util/get-emotion-image'
 import Button from './components/Button'
+import Header from './components/Header'
 
 function App() {
   const nav = useNavigate();  
   
   return (
     <>
+      <Header 
+        title={"title"} 
+        leftChild={<Button text={"Left"} />} 
+        rightChild={<Button text={"Right"} />}
+      />
       <Button text={'hello'} type={'POSITIVE'} onClick={()=>{
         console.log('hello~~')
       }}/>
