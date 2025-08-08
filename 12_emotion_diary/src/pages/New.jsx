@@ -1,7 +1,7 @@
 import Button from "../components/Button"
 import Header from "../components/Header"
 import Editor from "../components/Editor"
-import { useNavigate } from "react-router-dom"
+import { replace, useNavigate } from "react-router-dom"
 import { useContext } from "react"
 import {DiaryDispatchContext} from "../App"
 
@@ -10,7 +10,8 @@ const New = () => {
   const nav = useNavigate();
 
   const onSubmit = (input) => {
-    onCreate(input.createdDate.getTime(), input.emotionId, input.content)
+    onCreate(input.createdDate.getTime(), input.emotionId, input.content);
+    nav('/', {replace: true})
   }
 
   return (
