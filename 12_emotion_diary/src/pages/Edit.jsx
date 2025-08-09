@@ -23,7 +23,7 @@ const Edit = () => {
         }
 
         setCurrDiaryItem(currentDiaryItem);
-  }, [params.id, data])
+  }, [params.id])
 
   const onClickDelete = () => {
     if (window.confirm("일기를 정말 삭제할까요? 다시 복구되지 않습니다.")) {
