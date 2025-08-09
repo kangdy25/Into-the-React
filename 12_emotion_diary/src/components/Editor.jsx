@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Button from './Button';
 import './Editor.css'
 import EmotionItem from './EmotionItem'
@@ -38,13 +38,25 @@ const getStringedDate = (targetDate) => {
     return `${year}-${month}-${date}`;
 }
 
-const Editor = ({ onSubmit }) => {
+const Editor = ({ initData, onSubmit }) => {
   const nav = useNavigate();
+
   const [input, setInput] = useState({
     createdDate: new Date(),
     emotionId: 3,
     content: "",
   });
+
+  useEffect(()=>{
+    if (initData) {
+        setInput({
+            ...initData,
+            createdDate: new Date(Number(initData.createdDate)),
+        })
+    }
+  }, [initData])
+
+  console.log(input)
 
   const onChangeInput = (e) => {
     let name = e.target.name;
@@ -95,7 +107,7 @@ const Editor = ({ onSubmit }) => {
             <h4>오늘의 일기</h4>
             <textarea 
                 name='content'
-                input={input.content}
+                value={input.content}
                 onChange={onChangeInput}
                 placeholder='오늘은 어땠나요...?'
             />

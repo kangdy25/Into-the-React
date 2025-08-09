@@ -2,14 +2,28 @@ import { useNavigate, useParams } from "react-router-dom"
 import Header from "../components/Header"
 import Button from "../components/Button"
 import Editor from "../components/Editor"
-import { useContext } from "react"
-import { DiaryDispatchContext } from "../App"
+import { useContext, useEffect, useState } from "react"
+import { DiaryDispatchContext, DiaryStateContext } from "../App"
 
 const Edit = () => {
   const params = useParams();
-  console.log(params)
   const nav = useNavigate();
-  const { onDelete } = useContext(DiaryDispatchContext)
+  const { onDelete } = useContext(DiaryDispatchContext);
+  const data = useContext(DiaryStateContext)
+  const [currDiaryItem, setCurrDiaryItem] = useState();
+
+  useEffect(() => {
+    const currentDiaryItem = data.find(
+          (item) => String(item.id) === String(params.id)
+        );
+
+        if (!currentDiaryItem) {
+          window.alert("존재하지 않는 일기입니다...!!");
+          nav("/", {replace: true});
+        }
+
+        setCurrDiaryItem(currentDiaryItem);
+  }, [params.id, data])
 
   const onClickDelete = () => {
     if (window.confirm("일기를 정말 삭제할까요? 다시 복구되지 않습니다.")) {
@@ -29,7 +43,7 @@ const Edit = () => {
           <Button onClick={onClickDelete} text={"삭제하기"} type={"NEGATIVE"} />
         }
       />
-      <Editor />
+      <Editor initData={currDiaryItem}/>
     </div>
   )
 }
