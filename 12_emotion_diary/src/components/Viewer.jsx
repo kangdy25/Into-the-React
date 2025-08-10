@@ -17,7 +17,12 @@ const Viewer = () => {
                 <div className="">{emotionItem.emotionName}</div>
             </div>
         </section>
-        <section className="content_section"></section>
+        <section className="content_section">
+            <h4>오늘의 일기</h4>
+            <div className="content_wrapper">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit maxime exercitationem doloribus qui, distinctio corrupti quisquam, quaerat dolore quae ipsa eaque tempore omnis fuga quos facere. Ducimus tempore dolores accusamus?</p>
+            </div>
+        </section>
     </div>
   )
 }
