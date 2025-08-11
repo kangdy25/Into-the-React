@@ -1,5 +1,5 @@
 import './App.css'
-import { useReducer, useRef, createContext, useEffect } from 'react'
+import { useReducer, useRef, createContext, useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import New from './pages/New'
@@ -41,15 +41,22 @@ export const DiaryStateContext = createContext();
 export const DiaryDispatchContext = createContext();
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [data, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
 
   useEffect(() => {
     const storedData = localStorage.getItem("diary");
-    if (!storedData) return;
+    if (!storedData) {
+      setIsLoading(false);
+      return;
+    };
 
     const parsedData = JSON.parse(storedData);
-    if (!Array.isArray(parsedData)) return;
+    if (!Array.isArray(parsedData)) {
+      setIsLoading(false);
+      return;
+    };
 
     let maxId = 0;
     parsedData.forEach(item => {
@@ -63,7 +70,8 @@ function App() {
     dispatch({
       type: "INIT",
       data: parsedData
-    })
+    });
+    setIsLoading(false);
   }, [])
 
   // 일기 추가 (C)
@@ -100,6 +108,10 @@ function App() {
         id
       }
     })
+  }
+
+  if (isLoading) {
+    return <div>데이터 로딩 중입니다...</div>
   }
 
   return (
